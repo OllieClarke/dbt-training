@@ -15,3 +15,16 @@ sources:
 
     tables:
       - name: payment
+        columns:
+          - name: id
+            description: payment id field
+            tests:
+              - unique
+              - not_null
+          - name: orderid
+            description: Order Id from orders table
+            tests:
+              - not_null
+              - relationships:
+                  field: id
+                  to: source('jaffle_shop', 'orders')
