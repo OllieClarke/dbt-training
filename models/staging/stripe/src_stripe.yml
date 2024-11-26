@@ -13,7 +13,5 @@ sources:
         period: day
     loaded_at_field: _batched_at
 
-
-
     tables:
       - name: payment
