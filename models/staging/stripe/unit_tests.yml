@@ -1,0 +1,17 @@
+unit_tests:
+  - name: payments_cents_to_dollars
+    description: Testing the cents_to_dollars macro in payment   
+    model: stg_stripe__payments
+    given:
+      - input: source('stripe','payment')
+        rows:
+          - {'amount': 975}
+          - {'amount': 0.7}
+          - {'amount': 12564.3}
+          - {'amount': 0.4}
+    expect:
+      rows:
+        - {'amount': 9.75}
+        - {'amount': 0.01}
+        - {'amount': 125.64}
+        - {'amount': 0.00}
