@@ -1,4 +1,5 @@
 --a final test for slim ci
+--once more
 select
     id as payment_id
     ,orderid as order_id
