@@ -8,6 +8,7 @@ orders as (
 ),
 
 customer_orders as(
+    --adding a comment for CI
     select
         customer_id
         ,min(order_date) as first_order_date
