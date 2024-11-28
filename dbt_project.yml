@@ -42,6 +42,3 @@ models:
       +materialized: table
     staging:
       +materialized: view
-  snowflake_spend:
-    materialized: view
-    enabled: true
