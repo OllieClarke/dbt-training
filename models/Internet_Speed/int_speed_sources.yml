@@ -1,0 +1,27 @@
+version: 2
+
+sources:
+  - name: internet_speed_testing
+    database: TIL_PLAYGROUND
+    schema: OLLIE
+    tables:
+      - name: INTERNET_SPEED_TEST
+        description: my flat's internet speed as a dump from a raspberrypi
+        columns:
+          - name: JSON
+            description: a json body of up/down/ping/timestamp
+            tests:
+              - not_null
+          - name: __uploaded
+            description: the time that the dump was uploaded
+            tests:
+              - not_null
+              - unique
+        freshness:
+          warn_after:
+            count: 20
+            period: minute
+          error_after:
+            count: 60
+            period: minute
+        loaded_at_field: "convert_timezone('Europe/London', 'UTC', __uploaded)"
