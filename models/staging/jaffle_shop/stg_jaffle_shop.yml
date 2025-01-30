@@ -31,3 +31,36 @@ models:
         - unique
         - not_null
     
+  - name: stg_jaffle_shop__customers_daily_summary
+    description: showing how many orders per customer per day
+    columns:
+      - name: id
+        data_tests:
+          - unique 
+          - not_null
+      - name: customer_id
+        data_tests:
+          - not_null
+          - relationships:
+              field: customer_id
+              to: ref('stg_jaffle_shop__orders')
+
+  - name: stg_orders
+    description: one order per row
+    columns:
+      - name: order_id
+        description: primary key
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: foreign key to customers
+        tests:
+          - relationships:
+              field: customer_id
+              to: ref('stg_jaffle_shop__customers')
+      - name: status
+        description: "{{ doc('order_status')}}"
+        tests:
+          - accepted_values:
+              values: ['shipped','completed','return_pending','returned','placed']

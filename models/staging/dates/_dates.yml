@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: all_dates
+    description: every day since 2020-01-01
+    columns:
+      - name: date_day
+        description: the day
+        data_tests:
+          - unique
+          - not_null
+          
+
+  - name: union_tables_by_orders_prefix
+    description: all stripe orders that come from a table beginning with P 
+    columns:
+      - name: id
+        description: row id
+        data_tests:
+          - unique
+          - not_null
+      
+      - name: order_id
+        description: order_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_stripe__payments')
+              field: order_id

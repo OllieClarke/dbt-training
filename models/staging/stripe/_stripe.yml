@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: stg_stripe__payments
+    description: staged version of payments table
+    columns:
+      - name: payment_id
+        description: primary key
+        data_tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: foreign key
+        data_tests:
+          - unique
+          - not_null
+          
