@@ -12,6 +12,5 @@ models:
       - name: order_id
         description: foreign key
         data_tests:
-          - unique
           - not_null
           

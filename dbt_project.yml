@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'jaffle_shop'
+name: 'dbt_project'
 version: '1.0.0'
 config-version: 2
 
@@ -35,8 +35,18 @@ clean-targets:         # directories to be removed by `dbt clean`
 # continue to be built as views. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 
+on-run-end:
+  - '{{ dq_tools.store_test_results(results) }}'
+
+vars:
+  dq_tools_enable_store_test_results: False
+
 models:
-  jaffle_shop:
+  dq_tools:
+    +database: dbt
+    +schema: dq
+
+  dbt_project:
     # Applies to all files under models/example/
     #all models should have unique and not_null
     +required_tests: {"unique.*|not_null":2}
