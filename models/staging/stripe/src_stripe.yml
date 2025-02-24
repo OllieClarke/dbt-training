@@ -7,10 +7,10 @@ sources:
     schema: stripe
     freshness:
       warn_after:
-        count: 160
+        count: 365
         period: day
       error_after:
-        count: 365
+        count: 1095
         period: day
     loaded_at_field: _batched_at
 
