@@ -42,5 +42,3 @@ models:
       +materialized: table
     staging:
       +materialized: view
-  Internet_speed:
-    +materialized: view
