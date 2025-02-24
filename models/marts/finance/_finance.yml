@@ -12,6 +12,10 @@ models:
           - relationships:
               to: ref('stg_jaffle_shop__orders')
               field: order_id
+      - name: amount
+        data_tests:
+          - assert_column_is_greater_than_5
+
       - name: customer_id
         description: foreign key of customer
         data_tests:
