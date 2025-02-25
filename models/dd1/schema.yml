@@ -243,8 +243,6 @@ models:
           - accepted_values:
               values: ['Platinum','Gold','Silver','Bronze']
 
-
-
   - name: legacy
     description: original query
 
