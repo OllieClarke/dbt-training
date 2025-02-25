@@ -168,25 +168,83 @@ models:
               to: ref('stg_dd1__customers')
       - name: loyalty_spend
         data_type: number
+ 
+  - name: aggregated
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: frequent_flyer_id
+        data_type: varchar
         data_tests:
           - not_null
           - relationships:
-              to: ref('stg_dd1__bookings')
-              field: booking_price
-
-
-
-
-  
-
-
-  #   loyalty_spend
- 
-  - name: aggregated
-
+              to: ref('all_merge')
+              field: frequent_flyer_id
+      - name: customer_id
+        data_type: number
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('all_merge')
+              field: customer_id
+      - name: total_mileage
+        data_type: number
+        data_tests:
+          - not_null
+      - name: total_flights
+        data_type: number
+        data_tests:
+          - not_null
+      - name: year_of_flight
+        data_type: number
+        data_tests:
+          - not_null
+      - name: total_loyalty_spend
+        data_type: number
 
   - name: updated
     description: my new final query
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: frequent_flyer_id
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('aggregated')
+              field: frequent_flyer_id
+      - name: customer_id
+        data_type: number
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('aggregated')
+              field: customer_id
+      - name: loyalty_year
+        data_type: number
+        data_tests:
+          - not_null
+      - name: total_mileage
+        data_type: number
+        data_tests:
+          - not_null
+      - name: total_loyalty_spend
+        data_type: number
+      - name: total_flights
+        data_type: number
+        data_tests:
+          - not_null
+      - name: current_status
+        data_type: varchar
+        data_tests:
+          - accepted_values:
+              values: ['Platinum','Gold','Silver','Bronze']
+
+
+
   - name: legacy
     description: original query
 
