@@ -1,0 +1,192 @@
+version: 2
+
+sources:
+  - name: dd1
+    database: dbt
+    schema: dbt_oclarkecore
+    tables:
+      - name: bookings
+      - name: customers
+      - name: flights
+
+models:
+  - name: stg_dd1__bookings
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: booking_id
+        data_type: number
+        data_tests:
+          - unique
+          - not_null
+      - name: flight_ids
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: booking_price
+        data_type: number
+        data_tests:
+          - not_null
+      - name: frequent_flyer_id
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_dd1__customers')
+              field: frequent_flyer_id
+
+  - name: stg_dd1__customers
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: customer_id
+        data_type: number
+        data_tests:
+          - not_null
+          - unique
+      - name: frequent_flyer_id
+        data_type: varchar
+        data_tests:
+          - not_null
+          - unique
+      - name: customer_name
+        data_type: varchar
+        data_tests:
+          - not_null
+
+
+  - name: stg_dd1__flights
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: flight_id
+        data_type: number
+        data_tests:
+          - unique
+          - not_null
+      - name: flight_date
+        data_type: varchar
+        data_tests:
+          - not_null
+      - name: mileage
+        data_type: number
+        data_tests:
+          - not_null
+
+  - name: bookings_and_flights
+    description: the flattened version of the bookings table with all flight ids on their own rows
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: booking_id
+        data_type: number
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_dd1__bookings')
+              field: booking_id
+      - name: flight_id
+        data_type: number
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_dd1__flights')
+              field: flight_id
+      - name: booking_price
+        data_type: number
+        data_tests:
+          - not_null
+      - name: frequent_flyer_id
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_dd1__customers')
+              field: frequent_flyer_id
+
+  - name: all_merge
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: booking_id
+        data_type: number
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_dd1__bookings')
+              field: booking_id
+      - name: flight_id
+        data_type: number
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_dd1__flights')
+              field: flight_id
+      - name: booking_price
+        data_type: number
+        data_tests:
+          - not_null
+      - name: frequent_flyer_id
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_dd1__customers')
+              field: frequent_flyer_id
+      - name: flight_date
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_dd1__flights')
+              field: flight_date
+      - name: mileage
+        data_type: number
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_dd1__flights')
+              field: mileage
+      - name: customer_id
+        data_type: number
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_dd1__customers')
+              field: customer_id
+      - name: customer_name
+        data_type: varchar
+        data_tests:
+          - not_null
+          - relationships:
+              field: customer_name
+              to: ref('stg_dd1__customers')
+      - name: loyalty_spend
+        data_type: number
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_dd1__bookings')
+              field: booking_price
+
+
+
+
+  
+
+
+  #   loyalty_spend
+ 
+  - name: aggregated
+
+
+  - name: updated
+    description: my new final query
+  - name: legacy
+    description: original query
+
