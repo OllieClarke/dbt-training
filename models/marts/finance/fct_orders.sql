@@ -6,7 +6,6 @@ with orders as(
 )
 , order_payments as (
     --adding another comment for CI
-    --and another!
     select
     order_id
     , sum(case when status = 'success' then amount end) as amount
