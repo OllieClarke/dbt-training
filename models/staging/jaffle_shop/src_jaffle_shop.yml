@@ -7,10 +7,10 @@ sources:
     schema: jaffle_shop
     freshness:
         warn_after:
-          count: 90
+          count: 365
           period: day
         error_after:
-          count: 200
+          count: 1095
           period: day
     loaded_at_field: _etl_loaded_at
 
