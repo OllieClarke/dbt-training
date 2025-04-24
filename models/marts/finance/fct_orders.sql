@@ -5,8 +5,7 @@ with orders as(
     select * from {{ ref('stg_stripe__payments') }}
 )
 , order_payments as (
-    --adding another comment for CI
-    -- new comment
+
     select
     order_id
     , sum(case when status = 'success' then amount end) as amount
