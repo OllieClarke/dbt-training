@@ -23,4 +23,3 @@ left join payments p
 on o.order_id = p.order_id
 )
 select * from final
--- comment for CI
