@@ -5,14 +5,15 @@ sources:
     description: a clone of a Postgres application database
     database: raw
     schema: jaffle_shop
-    freshness:
-        warn_after:
-          count: 365
-          period: day
-        error_after:
-          count: 1095
-          period: day
-    loaded_at_field: _etl_loaded_at
+    config:
+      freshness:
+          warn_after:
+            count: 365
+            period: day
+          error_after:
+            count: 1095
+            period: day
+      loaded_at_field: _etl_loaded_at
 
     tables:
       - name: customers
