@@ -12,6 +12,8 @@ with orders as(
     from payments
     group by order_id
 )
+
+
 , final as (
 select
 o.order_id
@@ -23,3 +25,5 @@ left join payments p
 on o.order_id = p.order_id
 )
 select * from final
+
+-- adding two comments to demo slim CI
