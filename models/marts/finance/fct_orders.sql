@@ -27,3 +27,4 @@ on o.order_id = p.order_id
 select * from final
 
 -- adding two comments to demo slim CI
+-- adding yet another comment to demo slim ci
